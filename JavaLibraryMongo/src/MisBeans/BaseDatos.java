@@ -6,48 +6,79 @@
 package MisBeans;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Indexes.*;
 import java.util.ArrayList;
 import org.bson.Document;
-//import org.bson.Document;
 
 /**
  *
- * @author Alumno
+ * @author javier MV
  */
 public class BaseDatos {
     
     static MongoClient cliente;
-    static MongoDatabase DDBB;
+    static MongoDatabase ddbb;
     
     
     public BaseDatos(){
+        
         cliente = new MongoClient();
-        DDBB = cliente.getDatabase("mibasedatos");
+        ddbb = cliente.getDatabase("mibasedatos");
     }
     
     public static MongoDatabase getDB(){
-        return DDBB;
-    
+        
+        return ddbb;
     }
     
     public static Producto obtenerProductoDB(int idproducto){
-    
-    return null;
-    
+   
+        MongoCollection<Document> coleccion = ddbb.getCollection("productos");
+        Document doc = (Document) coleccion.find(eq("id",idproducto)).first();
+        if(doc != null){
+      
+            Producto requestedProduct = new Producto();
+            requestedProduct.setIdprod(Integer.parseInt(doc.getString("id")));
+            requestedProduct.setDescripcion(doc.getString("Desc"));
+            requestedProduct.setPvp((doc.getDouble("pvp").floatValue()));
+            requestedProduct.setStockactual(doc.getInteger("stockactual"));
+            requestedProduct.setStockminimo(doc.getInteger("stockminimo"));
+            return requestedProduct;
+        }
+        else{
+            
+            return null;
+        }   
     }
     
     public static int obtenerNumeroProducto(){
     
-        //se devuelve el numero del siguente producto a insertar
-        return 1;
+        MongoCollection<Document> coleccion = ddbb.getCollection("productos");
+        try{
+            Document doc = (Document) coleccion.find().sort(descending("id")).first();
+            return doc.getInteger("id")+1;
+            
+        }catch(MongoException e){
+        
+            return 0;
+        }
     }
     
     public static int obtenerNumeroPedido(){
     
-        return 0;
+        MongoCollection<Document> coleccion = ddbb.getCollection("pedidos");
+        try{
+            Document doc = (Document) coleccion.find().sort(descending("numpedido")).first();
+            return doc.getInteger("numpedido")+1;
+            
+        }catch(MongoException e){
         
-        //numero sigfuiente al numero maximo que hay insertado en la base de datos
+            return 0;
+        }
     }
     
     public static int obtenerNumeroVentas(){
@@ -82,8 +113,7 @@ public class BaseDatos {
     }
     
     private static java.sql.Date getFechaActual(){
-    
-    
+       
         return new java.sql.Date(new java.util.Date().getTime());
     }
     private void actualizarStock(Producto producto, int cantidad){
