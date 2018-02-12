@@ -83,8 +83,15 @@ public class BaseDatos {
     
     public static int obtenerNumeroVentas(){
     
-    //devolver el primer registro +1 de los numero de venta ordenados de forma descendente
-    return 0;
+        MongoCollection<Document> coleccion = ddbb.getCollection("ventas");
+        try{
+            Document doc = (Document) coleccion.find().sort(descending("numventas")).first();
+            return doc.getInteger("numventas")+1;
+            
+        }catch(MongoException e){
+        
+            return 0;
+        }
     
     }
     
