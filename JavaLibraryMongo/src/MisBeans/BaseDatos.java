@@ -101,6 +101,17 @@ public class BaseDatos {
         
     }
     
+    
+    public boolean borrarProducto(Producto producto){
+    
+        return borrarProducto(producto.getIdprod());
+    }
+    
+    public boolean borrarProducto(int idproducto){
+        
+            return true;
+        
+    }
     public boolean insertarPedido(Producto producto, int cantidad){
     
         return true;//OK
@@ -139,4 +150,17 @@ public class BaseDatos {
         return null;
     
     }
+    
+    
+    
+    public boolean inicializarBasedatos(){
+        //borrar la base de datos
+        //crear las colecciones
+        //insertar los datos de 3 documentos desde joson
+        
+        return true;
+        
+    }
+    
+    
 }
