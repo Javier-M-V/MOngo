@@ -35,6 +35,14 @@ public class Producto implements Serializable {
         this.pvp = pvp;
         propertySupport = new PropertyChangeSupport(this);
     }
+    public Producto(String descripcion, int stockactual, int stockminimo, float pvp) {
+        this.descripcion = descripcion;
+        this.idprod = 0;
+        this.stockactual = stockactual;
+        this.stockminimo = stockminimo;
+        this.pvp = pvp;
+        propertySupport = new PropertyChangeSupport(this);
+    }
 
     public String getDescripcion() {
         return descripcion;

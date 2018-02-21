@@ -1,0 +1,3 @@
+{"numeropedido" : 1,"producto" : {"descripcion" : "Duruss Cobalt","idproducto" : 1,"stockactual" : 10,"stockminimo" : 3,"pvp" : 220.0},"fecha" : "2018-02-05T21:00:53.168Z","cantidad" : 4}
+{"numeropedido" : 2,"producto" : {"descripcion" : "Duruss Cobalt","idproducto" : 1,"stockactual" : 10,"stockminimo" : 3,"pvp" : 220.0},"fecha" : "2018-02-06T21:00:53.168Z","cantidad" : 5}
+{"numeropedido" : 3,"producto" : {"descripcion" : "Duruss Cobalt","idproducto" : 1,"stockactual" : 10,"stockminimo" : 3,"pvp" : 220.0},"fecha" : "2018-02-07T21:00:53.168Z","cantidad" : 6}
